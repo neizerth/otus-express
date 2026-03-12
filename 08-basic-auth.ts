@@ -5,23 +5,17 @@ import basisAuth from "express-basic-auth";
 const PORT = 3008;
 const app = express();
 
-app.use(
-  basisAuth({
-    users: { admin: "supersecret" },
-  })
-);
+const authMiddleware = basisAuth({
+	users: { admin: "supersecret" },
+});
+
+// app.use(authMiddleware);
 
 // http://localhost:3000/
-app.get(
-  "/admin",
-  basisAuth({
-    users: { admin: "supersecret" },
-  }),
-  (req, res) => {
-    res.send({
-      time: new Date(),
-    });
-  }
-);
+app.get("/admin", authMiddleware, (_req, res) => {
+	res.send({
+		time: new Date(),
+	});
+});
 
 app.listen(PORT, () => console.log(`Hello from ${PORT}`));
