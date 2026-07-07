@@ -15,7 +15,7 @@ app.post(
 		[Segments.BODY]: Joi.object({
 			name: Joi.string().min(1).max(100).required(),
 			email: Joi.string().email().required(),
-			age: Joi.number().integer().min(0).optional(),
+			age: Joi.number().integer().min(8).optional(),
 		}),
 	}),
 	(req, res) => {
